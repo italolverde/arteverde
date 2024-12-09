@@ -6,6 +6,11 @@
     <title>Registrar</title>
 </head>
 <body>
-    
+    <form action="{{url_for('registrar')}}">
+        <input type="text" name='nome' required>
+        <input type="email" name="email" required>
+        <input type="text" name='senha' required>
+        <button type="submit">Registrar</button>
+    </form>
 </body>
 </html>
