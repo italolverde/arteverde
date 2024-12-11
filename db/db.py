@@ -11,6 +11,7 @@ class TB_User(Base):
     nome:Mapped[str]
     email:Mapped[str]
     senha:Mapped[str]
+    admin:Mapped[bool]
 
 
 engine = create_engine("sqlite:///banco.db")
