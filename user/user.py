@@ -2,6 +2,7 @@ from flask import Blueprint, request, render_template, session, url_for, redirec
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_required, login_user, logout_user, UserMixin
 import sqlite3
+from db.db import TB_User
 
 login_manager = LoginManager()
 
@@ -13,22 +14,17 @@ def get_connection():
     return conn
 
 class User(UserMixin):
-    def __init__(self,email,nome,senha,admin):
-        self.email = email
+    def __init__(self,nome,email,senha,admin):
         self.nome = nome
+        self.email = email
         self.senha = senha
         self.admin = admin
     
-    @classmethod
-    def get_by_email(cls, email):
-        conn = get_connection()
-        user = conn.execute('SELECT * FROM users WHERE email = ?',(email))
-        return user
 
 @bp_user.route('/register')
 def register():
-    email = request.form['email']
     nome = request.form['nome']
+    email = request.form['email']
     senha = generate_password_hash(request.form['senha'])
     admin = False #LEMBRAR DE MUDAR ISSO DEPOIS
 
@@ -39,7 +35,8 @@ def register():
             flash('Esse email ja está cadastrado.')
             return redirect(url_for('/user/register'))
         else:
-            novo_user = User(email,nome,senha,admin)
+            novo_user = User(nome,email,senha,admin)
+            TB_User(novo_user)
             session['user'] = novo_user
 
 

@@ -18,15 +18,15 @@ class TB_categoria(Base):
     __tablename__ = 'categoria'
     id:Mapped[int] = mapped_column(primary_key=True)
     nome:Mapped[str]
-    produtos:[List["TB_produto"]] = relationship("TB_produto", backref='categoria')
+    produtos:Mapped[List["TB_produto"]] = relationship("TB_produto", backref='categoria')
 
 class TB_produto(Base):
     __tablename__ = 'produto'
     id:Mapped[int] = mapped_column(primary_key=True)
     nome:Mapped[str]
     preco:Mapped[float]
-    #Dar um jeito de enfiar foto aqui dentro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     categoria_id:Mapped[int] = mapped_column(ForeignKey('categoria.id'))
+    #Dar um jeito de enfiar foto aqui dentro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 engine = create_engine("sqlite:///banco.db")
 Base.metadata.drop_all(bind=engine)
