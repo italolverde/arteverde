@@ -6,10 +6,10 @@
     <title>Registrar</title>
 </head>
 <body>
-    <form action="{{url_for('registrar')}}">
-        <input type="text" name='nome' required>
-        <input type="email" name="email" required>
-        <input type="text" name='senha' required>
+    <form action="{{url_for('user.register')}}" method="post">
+        <input type="text" name='nome' required placeholder="Nome">
+        <input type="email" name="email" required placeholder="Email">
+        <input type="password" name='senha' required placeholder="Senha" >
         <button type="submit">Registrar</button>
     </form>
 </body>

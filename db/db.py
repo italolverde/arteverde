@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, Session
 from sqlalchemy import create_engine, String, ForeignKey
 from typing import List
 
@@ -29,5 +29,7 @@ class TB_produto(Base):
     #Dar um jeito de enfiar foto aqui dentro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 engine = create_engine("sqlite:///banco.db")
-Base.metadata.drop_all(bind=engine)
-Base.metadata.create_all(bind=engine)
+# Base.metadata.drop_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
+
+session = Session(bind=engine)
