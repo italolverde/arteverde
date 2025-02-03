@@ -2,11 +2,12 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.orm import DeclarativeBase, Session
 from sqlalchemy import create_engine, String, ForeignKey
 from typing import List
+from flask_login import UserMixin
 
 class Base(DeclarativeBase):
     pass
 
-class TB_User(Base):
+class TB_User(Base, UserMixin):
     __tablename__ = 'users'
     id:Mapped[int] = mapped_column(primary_key=True)
     nome:Mapped[str]

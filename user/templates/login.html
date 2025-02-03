@@ -6,6 +6,10 @@
     <title>Login</title>
 </head>
 <body>
-    
+    <form action="{{url_for('user.login')}}" method="post">
+        <input type="email" name="email" id="" placeholder="Email" value="{{ email }}">
+        <input type="password" name="senha" id="" placeholder="Senha">
+        <button type="submit">Login</button>
+    </form>
 </body>
 </html>
