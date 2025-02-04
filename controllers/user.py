@@ -1,12 +1,17 @@
 from flask import Blueprint, request, render_template, session, url_for, redirect, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_required, login_user, logout_user, UserMixin
+from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user
 import sqlite3
 
 from db.db import TB_User, session
 
+login_manager = LoginManager()
 
-bp_user = Blueprint('user', __name__, url_prefix='/user', template_folder='./templates')
+@login_manager.user_loader
+def load_user(user_id):
+    return TB_User.find(id=user_id)
+
+bp_user = Blueprint('user', __name__, url_prefix='/user', template_folder='../templates/users')
 
 def get_connection():
     conn = sqlite3.connect("../banco.db")
@@ -49,7 +54,8 @@ def login():
                 print('---------------- Login bem sucedido')
                 flash('Login bem sucedido')
                 login_user(usuario)
-                return render_template('teste.html',user = usuario)
+                usuario = current_user
+                return redirect(url_for('home'))
                 
             else:
                 flash('Senha incorreta')

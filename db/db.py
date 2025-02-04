@@ -15,6 +15,19 @@ class TB_User(Base, UserMixin):
     senha:Mapped[str]
     admin:Mapped[bool]
 
+    def get_id(self): #sobresrever get id do UserMixin
+        return str(self.id)
+
+    @classmethod
+    def find(cls, **kwargs):
+        if 'email' in kwargs:
+            return session.query(cls).filter_by(email=kwargs['email']).first()
+        elif 'id' in kwargs:
+            return session.query(cls).filter_by(id=kwargs['id']).first() 
+        else: 
+            raise AttributeError('A busca deve ser feita por email ou id.')
+
+
 class TB_categoria(Base):
     __tablename__ = 'categoria'
     id:Mapped[int] = mapped_column(primary_key=True)

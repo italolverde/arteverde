@@ -1,5 +1,6 @@
-Criação do user admin e padrão
-CRUD estoque
+{ v } Criação do user admin e padrão
+{ x }CRUD estoque
 
-ver como diabos faz aquele gráfico de quantidade e valores
+{ '-' }ver como diabos faz aquele gráfico de quantidade e valores
 
+{ x } Unauthorized e Notfound URL handler
