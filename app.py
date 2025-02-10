@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request
-from controllers.user import bp_user, login_manager
+from controllers.user import bp_user, login_manager, login_required, current_user
 from flask_login import LoginManager
 from db.db import Base,engine
 
@@ -15,12 +15,14 @@ with app.app_context():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return redirect(url_for('user.register'))
     
 @app.route('/home', methods=['POST','GET'])
+@login_required
 def home():
-    if request.method == 'GET':
-        return render_template('homepage.html')
+    user = current_user
+    print(user.nome)
+    return render_template('homepage.html', user=user)
 
 
 

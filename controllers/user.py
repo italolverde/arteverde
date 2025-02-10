@@ -36,7 +36,7 @@ def register():
         session.add(novo_user)
         session.commit()
         flash('Usuário cadastrado com sucesso','sucess')
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
     return render_template('register.html')
 
 @bp_user.route('/login', methods=['POST','GET'])
@@ -63,7 +63,11 @@ def login():
                 return render_template('login.html',email=email)
     return render_template('login.html')
 
-
+@bp_user.route('/logout', methods=['POST','GET'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('user.login'))
 
 # @bp_user.route('/flash_message')
 # def flash_message():
